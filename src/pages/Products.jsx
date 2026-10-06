@@ -3,6 +3,7 @@ import axios from 'axios'
 
 function Products() {
   const [products, setProducts] = useState([])
+  const [search,setSearch] = useState('')
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
 
@@ -43,11 +44,28 @@ function Products() {
     )
   }
 
+  const filteredProducts = products.filter((product)=>{
+    return product.title.toLowerCase().includes(search.toLowerCase())
+  })
+
   return (
     <div className="container mt-5">
       <h2 className="mb-4">Products</h2>
+
+      <div className="row mb-4">
+        <div className="col-12 col-md-6">
+        <input
+          type="text"
+          placeholder="Search products..."
+          className="form-control"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        </div>
+      </div>
+
       <div className="row">
-        {products.map((product) => {
+        {filteredProducts.map((product) => {
           return (
             <div key={product.id} className="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
               <div className="card h-100 shadow-sm">
