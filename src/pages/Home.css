@@ -1,0 +1,398 @@
+.home-page {
+  color: #202033;
+  padding-bottom: 70px;
+  overflow: hidden;
+  background: #fff;
+}
+
+/* Hero */
+.hero-section {
+  padding-top: 75px;
+  padding-bottom: 75px;
+}
+
+.hero-badge {
+  display: inline-block;
+  padding: 10px 16px;
+  border-radius: 30px;
+  background: #f0edff;
+  color: #7053d9;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+.hero-title {
+  font-size: clamp(42px, 5vw, 68px);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -2px;
+  margin-bottom: 22px;
+}
+
+.hero-title span {
+  color: #7557e8;
+}
+
+.hero-description {
+  color: #737386;
+  font-size: 17px;
+  line-height: 1.9;
+  max-width: 480px;
+  margin-bottom: 30px;
+}
+
+.hero-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.btn-shop,
+.btn-explore,
+.btn-cta {
+  padding: 14px 24px;
+  border-radius: 12px;
+  font-weight: 600;
+  transition: all 0.25s ease;
+}
+
+.btn-shop {
+  background: #7557e8;
+  color: white;
+  box-shadow: 0 8px 22px rgba(117, 87, 232, 0.22);
+}
+
+.btn-shop:hover {
+  background: #6042cf;
+  color: white;
+  transform: translateY(-3px);
+}
+
+.btn-shop span {
+  margin-left: 10px;
+}
+
+.btn-explore {
+  color: #29263d;
+  border: 1px solid #dedbea;
+  background: white;
+}
+
+.btn-explore:hover {
+  border-color: #7557e8;
+  color: #7557e8;
+}
+
+.hero-trust {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  margin-top: 40px;
+}
+
+.trust-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.trust-item strong {
+  font-size: 15px;
+}
+
+.trust-item small {
+  font-size: 12px;
+  color: #88869a;
+}
+
+.trust-divider {
+  height: 35px;
+  width: 1px;
+  background: #e7e4ef;
+}
+
+/* Hero illustration */
+.hero-visual {
+  min-height: 410px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(140deg, #f2efff, #fff0f6);
+  border-radius: 35px;
+}
+
+.hero-circle {
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #b7a5ff, #f5b6d5);
+  position: absolute;
+}
+
+.shopping-illustration {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 220px;
+  height: 240px;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 35px;
+  transform: rotate(-5deg);
+  box-shadow: 0 25px 60px rgba(95, 69, 155, 0.14);
+}
+
+.bag-emoji {
+  font-size: 115px;
+}
+
+.sparkle {
+  position: absolute;
+  color: #7557e8;
+  font-size: 35px;
+}
+
+.sparkle-one {
+  top: 15px;
+  right: 10px;
+}
+
+.sparkle-two {
+  bottom: 20px;
+  left: 10px;
+  color: #ed78ac;
+}
+
+.floating-card {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 17px;
+  border-radius: 16px;
+  background: white;
+  box-shadow: 0 12px 35px rgba(48, 36, 87, 0.12);
+}
+
+.floating-card > span {
+  font-size: 25px;
+}
+
+.floating-card div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.floating-card strong {
+  font-size: 13px;
+}
+
+.floating-card small {
+  font-size: 11px;
+  color: #858296;
+}
+
+.card-top {
+  top: 55px;
+  left: -20px;
+}
+
+.card-bottom {
+  bottom: 45px;
+  right: -15px;
+}
+
+/* Benefits */
+.benefits-section {
+  padding-top: 65px;
+  padding-bottom: 75px;
+}
+
+.section-label {
+  color: #7557e8;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.section-title {
+  font-size: clamp(27px, 3vw, 38px);
+  font-weight: 800;
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+.section-description {
+  color: #858296;
+}
+
+.benefit-card {
+  height: 100%;
+  padding: 30px;
+  border: 1px solid #efedf5;
+  border-radius: 20px;
+  background: white;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.benefit-card:hover {
+  transform: translateY(-7px);
+  box-shadow: 0 18px 40px rgba(40, 30, 80, 0.08);
+}
+
+.benefit-icon {
+  width: 55px;
+  height: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  font-size: 25px;
+  margin-bottom: 22px;
+}
+
+.benefit-icon.purple {
+  background: #f0edff;
+}
+
+.benefit-icon.pink {
+  background: #fff0f6;
+}
+
+.benefit-icon.orange {
+  background: #fff3e8;
+}
+
+.benefit-card h5 {
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.benefit-card p {
+  color: #858296;
+  font-size: 14px;
+  line-height: 1.8;
+  margin-bottom: 0;
+}
+
+/* Bottom CTA */
+.home-cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+  padding: 40px;
+  border-radius: 25px;
+  background: linear-gradient(120deg, #7557e8, #a27be9);
+  color: white;
+}
+
+.home-cta h2 {
+  font-size: clamp(23px, 3vw, 32px);
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.home-cta p {
+  margin-bottom: 0;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.7;
+}
+
+.btn-cta {
+  flex-shrink: 0;
+  background: white;
+  color: #694bd6;
+}
+
+.btn-cta:hover {
+  background: #f2efff;
+  color: #5134bd;
+  transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+  .hero-section {
+    padding-top: 45px;
+    padding-bottom: 30px;
+  }
+
+  .hero-visual {
+    min-height: 350px;
+    margin-top: 15px;
+  }
+
+  .card-top {
+    left: 10px;
+  }
+
+  .card-bottom {
+    right: 10px;
+  }
+}
+
+@media (max-width: 575px) {
+  .hero-title {
+    letter-spacing: -1px;
+  }
+
+  .hero-trust {
+    gap: 15px;
+  }
+
+  .hero-visual {
+    min-height: 300px;
+  }
+
+  .hero-circle {
+    width: 200px;
+    height: 200px;
+  }
+
+  .shopping-illustration {
+    width: 175px;
+    height: 200px;
+  }
+
+  .bag-emoji {
+    font-size: 90px;
+  }
+
+  .floating-card {
+    padding: 10px;
+  }
+
+  .floating-card strong {
+    font-size: 11px;
+  }
+
+  .floating-card small {
+    font-size: 10px;
+  }
+
+  .card-top {
+    top: 20px;
+  }
+
+  .card-bottom {
+    bottom: 20px;
+  }
+
+  .benefits-section {
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+
+  .home-cta {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 28px;
+  }
+}

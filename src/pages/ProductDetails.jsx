@@ -109,7 +109,7 @@ function ProductDetails() {
                         {product.category}
                     </span>
 
-                    <h1 className='fw-bold mb-3 display-6'>{product.title}</h1>
+                    <h1 className='fw-bold mb-3 display-6 text-black'>{product.title}</h1>
 
                     {/* Rating + Brand row */}
                     <div className="d-flex align-items-center gap-3 mb-4 flex-wrap">

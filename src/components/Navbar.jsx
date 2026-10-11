@@ -1,6 +1,10 @@
 import { Link, NavLink } from 'react-router-dom'
+import {useContext} from 'react'
+import CartContext from '../context/CartContext.jsx'
 
 function Navbar() {
+  const { cart } = useContext(CartContext);
+
   return (
     <nav className="navbar navbar-expand-lg navbar-dark sticky-top modern-navbar">
       <div className="container">
@@ -58,7 +62,7 @@ function Navbar() {
           </ul>
 
           {/* Right side */}
-          <div className="d-flex align-items-center gap-2 flex-column flex-lg-row w-100 w-lg-auto mt-3 mt-lg-0">
+          <div className="d-flex align-items-center gap-2 flex-column flex-lg-row w-lg-auto mt-3 mt-lg-0">
 
             
 
@@ -73,7 +77,7 @@ function Navbar() {
               <span>Cart</span>
 
               <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger cart-badge">
-                0
+                {cart.length}
               </span>
             </Link>
 

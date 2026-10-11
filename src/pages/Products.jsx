@@ -1,12 +1,23 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import ProductCard from '../components/ProductCard'
+import CartContext from '../context/CartContext'
 import axios from 'axios'
+import { ToastContainer, toast } from 'react-toastify';
 
 function Products() {
   const [products, setProducts] = useState([])
   const [search, setSearch] = useState('')
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
+
+  const { cart, setCart } = useContext(CartContext)
+
+  const addToCart = (product) => {
+    toast(`Added "${product.title}" to cart!`)
+    setCart((prevCart) =>{
+      return [...prevCart,product];
+    })
+  }
 
   useEffect(() => {
     getProducts()
@@ -56,6 +67,7 @@ function Products() {
 
   return (
     <div className="container py-5">
+      <ToastContainer />
       {/* Header Section */}
       <div className="text-center mb-5">
         <h1 className="display-5 fw-bold text-dark mb-2">Our Products</h1>
@@ -100,7 +112,7 @@ function Products() {
             return (
               <div key={product.id} className="col-12 col-sm-6 col-md-4 col-lg-3">
                 <div className="h-100 transition-transform">
-                  <ProductCard product={product} />
+                  <ProductCard product={product} onAddToCart={()=>addToCart(product)} />
                 </div>
               </div>
             )
