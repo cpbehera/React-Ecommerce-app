@@ -71,18 +71,61 @@ const pageStyles = `
     box-shadow: 0 0 0 4px rgba(245, 184, 61, 0.35);
   }
 
-  /* Result count */
-  .pp-meta {
+  /* Toolbar: filters + sort + result count */
+  .pp-toolbar {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 2.25rem 0 1.5rem;
-    padding-bottom: 1rem;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 1rem 1.25rem;
+    margin: 2.25rem 0 1.75rem;
+    padding-bottom: 1.5rem;
     border-bottom: 1px solid var(--line);
+  }
+  .pp-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    min-width: 220px;
+  }
+  .pp-field label {
+    margin-left: 0.25rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+  }
+  .pp-select {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 48px;
+    padding: 0 2.6rem 0 1.15rem;
+    border: 1.5px solid var(--line);
+    border-radius: 999px;
+    background-color: var(--surface);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 16 16' fill='none' stroke='%235a6272' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 6l5 5 5-5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1.1rem center;
+    color: var(--ink);
+    font-family: inherit;
+    font-size: 0.98rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .pp-select:hover {
+    border-color: #c9cfda;
+  }
+  .pp-select:focus {
+    outline: none;
+    border-color: var(--ink);
+    box-shadow: 0 0 0 4px rgba(245, 184, 61, 0.35);
+  }
+  .pp-count {
+    margin-left: auto;
+    padding-bottom: 0.8rem;
     font-size: 0.95rem;
     color: var(--ink-soft);
   }
-  .pp-meta strong {
+  .pp-count strong {
     color: var(--ink);
     font-weight: 600;
   }
@@ -129,7 +172,7 @@ const pageStyles = `
   /* Error + empty states */
   .pp-state {
     max-width: 30rem;
-    margin: 4rem auto 0;
+    margin: 3rem auto 0;
     padding: 2.5rem 1.5rem;
     text-align: center;
   }
@@ -175,9 +218,15 @@ const pageStyles = `
     color: #d64545;
   }
 
+  @media (max-width: 575.98px) {
+    .pp { padding-top: 2rem; }
+    .pp-field { flex: 1 1 100%; min-width: 0; }
+    .pp-count { margin-left: 0; padding-bottom: 0; }
+  }
   @media (prefers-reduced-motion: reduce) {
     .pp-item,
-    .pp-search input { transition: none; }
+    .pp-search input,
+    .pp-select { transition: none; }
     .pp-skel-img,
     .pp-skel-line { animation: none; }
     .pp-item:hover { transform: none; }
@@ -296,9 +345,19 @@ function Products() {
     const matchesSearch = product.title.toLowerCase().includes(search.toLowerCase());
     const matchesCategory = selectedCategory === 'all' || product.category === selectedCategory;
     return matchesSearch && matchesCategory;
-  })
+  }).sort((a, b) => {
+    if (sortBy === 'low-to-high') {
+      return a.price - b.price;
+    }
+    if (sortBy === 'high-to-low') {
+      return b.price - a.price;
+    }
+    return 0;
+  });
 
   console.log(filteredProducts);
+
+  const isFiltering = search !== '' || selectedCategory !== 'all'
 
   return (
     <div className="pp">
@@ -329,27 +388,16 @@ function Products() {
           </div>
         </div>
 
-        {/* Result count */}
-        <div className="pp-meta" aria-live="polite">
-          {search ? (
-            <span>
-              <strong>{filteredProducts.length}</strong> result{filteredProducts.length !== 1 ? 's' : ''} found
-            </span>
-          ) : (
-            <span>
-              <strong>{products.length}</strong> products
-            </span>
-          )}
-        </div>
-
-        <div className='row g-3 mb-4'>
-          <div className='col-12 col-md-6'>
-            <label className='form-label fw-semibold'>
-              Filter by Category
-            </label>
-
-            <select className='form-select' value={selectedCategory} 
-              onChange={(e)=> setSelectedCategory(e.target.value)}>
+        {/* Toolbar: category filter, price sort, result count */}
+        <div className="pp-toolbar">
+          <div className="pp-field">
+            <label htmlFor="category-filter">Category</label>
+            <select
+              id="category-filter"
+              className="pp-select"
+              value={selectedCategory}
+              onChange={(e)=> setSelectedCategory(e.target.value)}
+            >
               <option value='all'>All Categories</option>
               {categories.map((category)=>{
                 return (
@@ -359,6 +407,32 @@ function Products() {
                 )
               })}
             </select>
+          </div>
+
+          <div className="pp-field">
+            <label htmlFor="price-sort">Sort by price</label>
+            <select
+              id="price-sort"
+              className="pp-select"
+              value={sortBy}
+              onChange={(e)=>setSortBy(e.target.value)}
+            >
+              <option value='default'>Default Order</option>
+              <option value='low-to-high'>Price: Low to High</option>
+              <option value='high-to-low'>Price: High to Low</option>
+            </select>
+          </div>
+
+          <div className="pp-count" aria-live="polite">
+            {isFiltering ? (
+              <span>
+                <strong>{filteredProducts.length}</strong> result{filteredProducts.length !== 1 ? 's' : ''} found
+              </span>
+            ) : (
+              <span>
+                <strong>{products.length}</strong> products
+              </span>
+            )}
           </div>
         </div>
 
@@ -371,7 +445,7 @@ function Products() {
               </svg>
             </div>
             <h2>No products found</h2>
-            <p>Try adjusting your search terms</p>
+            <p>Try adjusting your search or filters</p>
           </div>
         ) : (
           <div className="row g-4">
