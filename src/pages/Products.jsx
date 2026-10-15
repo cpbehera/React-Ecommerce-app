@@ -189,6 +189,9 @@ function Products() {
   const [search, setSearch] = useState('')
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
+  const [categories,setCategories] = useState([])
+  const [selectedCategory,setSelectedCategory] = useState('all')
+  const [sortBy,setSortBy] = useState('default')
 
   const { cart, setCart } = useContext(CartContext)
 
@@ -219,6 +222,7 @@ function Products() {
 
   useEffect(() => {
     getProducts()
+    getCategories()
   }, [])
 
   const getProducts = async () => {
@@ -231,6 +235,15 @@ function Products() {
     } finally {
       console.log('Finished fetching products.')
       setLoading(false)
+    }
+  }
+
+  const getCategories = async () => {
+    try {
+      const response = await axios.get('https://dummyjson.com/products/category-list')
+      setCategories(response.data)
+    } catch (error) {
+      console.error('Error fetching categories:', error);
     }
   }
 
@@ -280,8 +293,12 @@ function Products() {
   }
 
   const filteredProducts = products.filter((product) => {
-    return product.title.toLowerCase().includes(search.toLowerCase())
+    const matchesSearch = product.title.toLowerCase().includes(search.toLowerCase());
+    const matchesCategory = selectedCategory === 'all' || product.category === selectedCategory;
+    return matchesSearch && matchesCategory;
   })
+
+  console.log(filteredProducts);
 
   return (
     <div className="pp">
@@ -323,6 +340,26 @@ function Products() {
               <strong>{products.length}</strong> products
             </span>
           )}
+        </div>
+
+        <div className='row g-3 mb-4'>
+          <div className='col-12 col-md-6'>
+            <label className='form-label fw-semibold'>
+              Filter by Category
+            </label>
+
+            <select className='form-select' value={selectedCategory} 
+              onChange={(e)=> setSelectedCategory(e.target.value)}>
+              <option value='all'>All Categories</option>
+              {categories.map((category)=>{
+                return (
+                  <option key={category} value={category}>
+                    {category.replaceAll('-',' ').replace(/\b\w/g, (char) => char.toUpperCase())}
+                  </option>
+                )
+              })}
+            </select>
+          </div>
         </div>
 
         {/* Products Grid */}
